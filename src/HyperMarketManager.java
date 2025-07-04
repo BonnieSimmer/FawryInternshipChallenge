@@ -1,16 +1,16 @@
-import All_Products.Products;
+import All_Products.Product;
 import All_Products.Shippable;
 
 import java.util.ArrayList;
 
 public class HyperMarketManager {
-    private ArrayList<Products> totalProducts;
+    private ArrayList<Product> totalProducts;
     private ArrayList<Integer> totalProduct_quantities;
-    static ArrayList<Shippable> tobeShipped;
-    static ArrayList<Integer> tobeShipped_quantities;
     private static double sales; // Total HyperMarkets sales (static)
+    private static ArrayList<Shippable> tobeShipped;
+    private static ArrayList<Integer> tobeShipped_quantities;
 
-    public HyperMarketManager(ArrayList<Products> totalProducts, ArrayList<Integer> totalProduct_quantities) throws IllegalArgumentException {
+    public HyperMarketManager(ArrayList<Product> totalProducts, ArrayList<Integer> totalProduct_quantities) throws IllegalArgumentException {
         if (totalProducts.size() != totalProduct_quantities.size()) {
             throw new IllegalArgumentException("Number of Products and Quantity Do not Match");
         }
@@ -19,11 +19,11 @@ public class HyperMarketManager {
         sales = 0.0;
     }
 
-    public ArrayList<Products> getTotalProducts() {
+    public ArrayList<Product> getTotalProducts() {
         return totalProducts;
     }
 
-    public void setTotalProducts(ArrayList<Products> totalProducts) {
+    public void setTotalProducts(ArrayList<Product> totalProducts) {
         this.totalProducts = totalProducts;
     }
 
@@ -35,7 +35,7 @@ public class HyperMarketManager {
         this.totalProduct_quantities = totalProduct_quantities;
     }
 
-    public double getSales() {
+    public static double getSales() {
         return sales;
     }
 
@@ -43,7 +43,7 @@ public class HyperMarketManager {
         if (cart.getProducts().isEmpty()) {
             throw new IllegalArgumentException("The cart is empty!");
         }
-        ArrayList<Products> cartProducts = cart.getProducts();
+        ArrayList<Product> cartProducts = cart.getProducts();
         ArrayList<Integer> cartProduct_quantities = cart.getProduct_quantities();
         double shipping_cost = 0.0, total;
         if (cart.isShippingRequired()) {

@@ -2,7 +2,7 @@ package All_Products;
 
 import java.time.LocalDate;
 
-public class Biscuits extends Products implements Expirable, Shippable{
+public class Biscuits extends Product implements Expirable, Shippable{
     private String flavour; // ex for when i start testing: chocolate, vanilla, strawberry
     private LocalDate expiryDate;
     private double weight; // in grams

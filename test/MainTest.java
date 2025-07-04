@@ -8,12 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
     private HyperMarketManager manager;
-    private ArrayList<Products> testProducts;
+    private ArrayList<Product> testProducts;
     private ArrayList<Integer> testQuantities;
     private Cheese cheese;
     private Biscuits biscuits;
     private Television tv;
     private MobilePhones phone;
+    private ExpirationTestProduct expiredCheese;
 
     @BeforeEach
     void setUp() {
@@ -25,16 +26,19 @@ class MainTest {
         biscuits = new Biscuits("ChocoBiscuits", 15.0, 300, "Chocolate");
         tv = new Television("Toshiba", 1000.0, 5000, true);
         phone = new MobilePhones("iPhone", 800.0, 200, true);
+        expiredCheese = new ExpirationTestProduct("Expired Mozzarella", 50.0, 260, "Italy");
 
         testProducts.add(cheese);
         testProducts.add(biscuits);
         testProducts.add(tv);
         testProducts.add(phone);
+        testProducts.add(expiredCheese);
 
         testQuantities.add(10);
         testQuantities.add(20);
         testQuantities.add(5);
         testQuantities.add(8);
+        testQuantities.add(10);
 
         manager = new HyperMarketManager(testProducts, testQuantities);
     }
@@ -53,6 +57,15 @@ class MainTest {
         assertEquals(5000, tv.getWeight());
 
         assertTrue(phone.isSupporting5G());
+    }
+
+    @Test
+    void testAddingExpiredProductToCart() {
+        Cart cart = new Cart(manager);
+        Customer customer = new Customer(500.0);
+        assertThrows(IllegalStateException.class, () -> {
+            cart.add(expiredCheese, 1);
+        });
     }
 
     @Test
@@ -139,7 +152,7 @@ class MainTest {
     @Test
     void testHyperMarketManagerInitialization() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ArrayList<Products> products = new ArrayList<>();
+            ArrayList<Product> products = new ArrayList<>();
             ArrayList<Integer> quantities = new ArrayList<>();
             products.add(cheese);
             // Don't add quantity - should throw exception

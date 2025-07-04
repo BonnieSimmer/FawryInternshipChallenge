@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Cart {
     private HyperMarketManager manager; // which hypermarket this cart belongs to and has access to
     private boolean shippingRequired;
-    private ArrayList<Products> products;
+    private ArrayList<Product> products;
     private ArrayList<Integer> product_quantities;
     private double total;
     public Cart(HyperMarketManager manager) {
@@ -16,7 +16,7 @@ public class Cart {
         total = 0.0;
     }
 
-    public ArrayList<Products> getProducts() {
+    public ArrayList<Product> getProducts() {
         return products;
     }
 
@@ -33,14 +33,14 @@ public class Cart {
     }
 
 
-    void add(Products product, int product_quantity ) throws IllegalArgumentException {
+    void add(Product product, int product_quantity ) throws IllegalArgumentException, IllegalStateException {
         if (manager.getTotalProducts().contains(product)) {
             int quantity_store = manager.getTotalProduct_quantities().get(manager.getTotalProducts().indexOf(product));
             if (product_quantity <= 0) {
                 throw new IllegalArgumentException("Quantity can't be less than or equal zero!");
             } else if (product instanceof Expirable) {
                 if ( ((Expirable)product).expire() ) {
-                    throw new IllegalArgumentException("The product is already expired");
+                    throw new IllegalStateException("This product is already expired");
                 }
             }
             if (product_quantity > quantity_store) {
@@ -58,7 +58,7 @@ public class Cart {
 
     }
 
-    void remove(Products product, int quantity)  throws IllegalArgumentException {
+    void remove(Product product, int quantity)  throws IllegalArgumentException {
         if (products.contains(product)) {
             int cart_quantity = product_quantities.get(products.indexOf(product));
             if (quantity <= 0) {

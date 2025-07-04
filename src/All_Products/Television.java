@@ -1,6 +1,6 @@
 package All_Products;
 
-public class Television extends Products implements Shippable{
+public class Television extends Product implements Shippable{
     private boolean isSmartTV;
     private double weight; // in grams
     public Television(String name, double price, double weight, boolean isSmartTV) {

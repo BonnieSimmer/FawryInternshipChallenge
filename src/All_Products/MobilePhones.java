@@ -1,6 +1,6 @@
 package All_Products;
 
-public class MobilePhones extends Products implements Shippable {
+public class MobilePhones extends Product implements Shippable {
     boolean supports5G;
     private double weight; // in grams
     public MobilePhones(String name, double price, double weight, boolean supports5G) {
