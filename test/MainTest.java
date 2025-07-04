@@ -78,6 +78,16 @@ class MainTest {
     }
 
     @Test
+    void testCartIsEmpty() {
+        Cart cart = new Cart(manager);
+        Customer customer = new Customer(500.0);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            HyperMarketManager.checkout(customer, cart); // Cart is empty
+        });
+    }
+
+    @Test
     void testCartExceedsAvailableQuantity() {
         Cart cart = new Cart(manager);
         assertThrows(IllegalArgumentException.class, () -> {
