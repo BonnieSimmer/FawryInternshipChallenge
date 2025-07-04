@@ -40,6 +40,9 @@ public class HyperMarketManager {
     }
 
     static void checkout(Customer customer, Cart cart) throws RuntimeException {
+        if (cart.getProducts().isEmpty()) {
+            throw new IllegalArgumentException("The cart is empty!");
+        }
         ArrayList<Products> cartProducts = cart.getProducts();
         ArrayList<Integer> cartProduct_quantities = cart.getProduct_quantities();
         double shipping_cost = 0.0, total;
